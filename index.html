@@ -1,354 +1,224 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
+<html>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cierre de Caja - Bar</title>
+    <title>Cierre de Caja Cafetería</title>
     <style>
-        :root {
-            --primary: #4CAF50;
-            --danger: #f44336;
-            --border: #ddd;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .form-container {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #555;
-        }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 10px;
-            transition: background 0.3s;
-        }
-        button:hover {
-            opacity: 0.9;
-        }
-        button.secondary {
-            background-color: #607d8b;
-        }
-        button.danger {
-            background-color: var(--danger);
-        }
-        .dynamic-field {
-            margin-top: 15px;
-            padding: 15px;
-            border: 1px dashed var(--border);
-            border-radius: 4px;
-            position: relative;
-        }
-        .remove-btn {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            background: var(--danger);
-            color: white;
-            border: none;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .total-box {
-            background: #e8f5e9;
-            padding: 15px;
-            border-radius: 4px;
-            margin-top: 20px;
-            font-weight: bold;
-            text-align: center;
-        }
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            .form-container {
-                padding: 15px;
-            }
-        }
+      body { font-family: Arial, sans-serif; margin: 20px; }
+      #chatBox div { margin: 10px 0; }
+      .question { font-weight: bold; }
+      .response { margin-left: 20px; }
+      input, select, button { padding: 5px; font-size: 1em; }
+      pre { background: #f5f5f5; padding: 10px; border-radius: 5px; }
     </style>
-</head>
-<body>
-    <div class="form-container">
-        <h1>📊 Cierre de Caja Diario</h1>
-        
-        <div id="mainForm">
-            <div class="form-group">
-                <label for="fecha">Fecha:</label>
-                <input type="date" id="fecha" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="turno">Turno:</label>
-                <select id="turno" required>
-                    <option value="">Seleccionar...</option>
-                    <option value="mañana">Mañana</option>
-                    <option value="tarde">Tarde</option>
-                    <option value="noche">Noche</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="responsable">Responsable:</label>
-                <input type="text" id="responsable" placeholder="Nombre del encargado" required>
-            </div>
-            
-            <h3>📝 Registro de Operaciones</h3>
-            <div id="operacionesContainer">
-                <!-- Aquí se agregarán dinámicamente los campos -->
-                <div class="dynamic-field" id="operacion1">
-                    <div class="form-group">
-                        <label>Tipo:</label>
-                        <select class="tipo" required>
-                            <option value="ingreso">Ingreso</option>
-                            <option value="gasto">Gasto</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Concepto:</label>
-                        <input type="text" class="concepto" placeholder="Ej: Venta de bebidas" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Monto (€):</label>
-                        <input type="number" class="monto" step="0.01" min="0" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Proveedor (opcional):</label>
-                        <input type="text" class="proveedor" placeholder="Nombre del proveedor">
-                    </div>
-                </div>
-            </div>
-            
-            <button type="button" onclick="addOperation()" class="secondary">➕ Añadir Operación</button>
-            
-            <div class="form-group">
-                <label for="observaciones">Observaciones:</label>
-                <textarea id="observaciones" rows="3" style="width: 100%; padding: 10px;"></textarea>
-            </div>
-            
-            <div class="total-box">
-                <p>Total Cierre: <span id="totalCierre">0.00</span> €</p>
-            </div>
-            
-            <div style="margin-top: 30px; text-align: center;">
-                <button type="button" onclick="calculateTotal()" class="secondary">🧮 Calcular Total</button>
-                <button type="button" onclick="saveData()" style="background-color: #2196F3;">💾 Guardar Cierre</button>
-                <button type="button" onclick="clearForm()" class="danger">🗑️ Limpiar Todo</button>
-            </div>
-        </div>
-    </div>
+  </head>
+  <body>
+    <h1>Cierre de Caja Cafetería</h1>
+
+    <!-- Seleccionar mes y día -->
+    <label for="mes">Selecciona el mes:</label>
+    <select id="mes">
+      <option>Enero</option>
+      <option>Febrero</option>
+      <option>Marzo</option>
+      <option>Abril</option>
+      <option>Mayo</option>
+      <option>Junio</option>
+      <option>Julio</option>
+      <option>Agosto</option>
+      <option>Septiembre</option>
+      <option>Octubre</option>
+      <option>Noviembre</option>
+      <option>Diciembre</option>
+    </select>
+
+    <label for="dia">Selecciona el día:</label>
+    <input type="number" id="dia" min="1" max="31">
+
+    <!-- Botones para registrar y ver datos -->
+    <button onclick="startEntry()">Registrar Cierre</button>
+    <button onclick="getResults()">Ver Datos del Día</button>
+    <button onclick="getMonthResults()">Ver Datos del Mes</button>
+
+    <div id="chatBox"></div>
+    <div id="resultados"></div>
 
     <script>
-        // URL de tu Google Apps Script (REEMPLAZAR ESTO)
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzNz-dLx7t6iGwU0H4Ufgw8Eu7dWtcHMG0I7CR2WRrfAUZbLmT8ntOUsdVW8ngCTOlZ/exec';
-        
-        let operationCount = 1;
-        
-        // Añadir nueva operación
-        function addOperation() {
-            operationCount++;
-            const container = document.getElementById('operacionesContainer');
-            const newOperation = document.createElement('div');
-            newOperation.className = 'dynamic-field';
-            newOperation.id = `operacion${operationCount}`;
-            newOperation.innerHTML = `
-                <button class="remove-btn" onclick="removeOperation('operacion${operationCount}')">×</button>
-                <div class="form-group">
-                    <label>Tipo:</label>
-                    <select class="tipo" required>
-                        <option value="ingreso">Ingreso</option>
-                        <option value="gasto">Gasto</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label>Concepto:</label>
-                    <input type="text" class="concepto" placeholder="Ej: Compra de suministros" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Monto (€):</label>
-                    <input type="number" class="monto" step="0.01" min="0" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Proveedor (opcional):</label>
-                    <input type="text" class="proveedor" placeholder="Nombre del proveedor">
-                </div>
-            `;
-            container.appendChild(newOperation);
+      // Orden de las cabeceras seg\u00FAn el Excel
+      var headerOrder = [
+        "Fecha",
+        "Ventas en efectivo",
+        "Ventas con tarjeta",
+        "Total ingresos",
+        "Saldo inicial",
+        "Ingresos efectivo (de ventas)",
+        "Retiradas",
+        "Gastos menores",
+        "Saldo final",
+        "Efectivo teórico (según TPV)",
+        "Efectivo real (contado físicamente)",
+        "Descuadre",
+        "Comentarios",
+        "Cambio final",
+        "Retiro a sobre / caja fuerte"
+      ];
+
+      // Preguntas del flujo de registro. Solo se solicitan los datos de entrada.
+      var questions = [
+        { key: "efectivo", text: "💰 Introduce Ventas en efectivo:" },
+        { key: "tarjeta", text: "💳 Introduce Ventas con tarjeta:" },
+        { key: "inicial", text: "📦 Introduce Saldo inicial:" },
+        { key: "retiradas", text: "🔻 Introduce Retiradas:" },
+        { key: "gastos", text: "🧊 Introduce Gastos menores:" },
+        { key: "contado", text: "💶 Introduce Efectivo real (contado físicamente):" },
+        { key: "comentarios", text: "📝 Introduce Comentarios (opcional):", type:"text" },
+        { key: "cambio", text: "💼 Introduce Cambio final:" }
+      ];
+
+      var userData = {};
+      var currentQuestion = 0;
+
+      // Inicia el registro (se leen mes y día)
+      function startEntry() {
+        userData.mes = document.getElementById("mes").value;
+        userData.dia = document.getElementById("dia").value;
+        if (!userData.dia) {
+          alert("Selecciona un día válido.");
+          return;
         }
-        
-        // Eliminar operación
-        function removeOperation(id) {
-            if (document.querySelectorAll('.dynamic-field').length > 1) {
-                document.getElementById(id).remove();
-                calculateTotal();
+        currentQuestion = 0;
+        document.getElementById("chatBox").innerHTML = "";
+        askQuestion();
+      }
+
+      // Muestra cada pregunta
+      function askQuestion() {
+        if (currentQuestion < questions.length) {
+          var chatBox = document.getElementById('chatBox');
+          var qDiv = document.createElement('div');
+          qDiv.className = "question";
+          qDiv.textContent = questions[currentQuestion].text;
+          chatBox.appendChild(qDiv);
+
+          var input = document.createElement('input');
+          // Si la pregunta es de tipo texto (por ejemplo, comentarios), cambiar el tipo
+          input.type = (questions[currentQuestion].type) ? questions[currentQuestion].type : "number";
+          if(input.type=="number") { input.step = "any"; }
+          input.id = questions[currentQuestion].key;
+          input.placeholder = "Ingresa un valor";
+          chatBox.appendChild(input);
+
+          var btn = document.createElement('button');
+          btn.textContent = "Enviar";
+          btn.onclick = submitAnswer;
+          chatBox.appendChild(btn);
+          input.focus();
+        } else {
+          finalizeData();
+        }
+      }
+
+      function submitAnswer() {
+        var key = questions[currentQuestion].key;
+        var inputElem = document.getElementById(key);
+        var value = (inputElem.type=="number") ? parseFloat(inputElem.value) : inputElem.value;
+        if (inputElem.type=="number" && isNaN(value)) {
+          alert("Por favor, introduce un número válido.");
+          return;
+        }
+        userData[key] = value;
+        var chatBox = document.getElementById('chatBox');
+        var respDiv = document.createElement('div');
+        respDiv.className = "response";
+        respDiv.textContent = value;
+        chatBox.appendChild(respDiv);
+        currentQuestion++;
+        askQuestion();
+      }
+
+      // Finaliza el registro y decide si actualizar o guardar nuevo registro.
+      function finalizeData() {
+        var mes = userData.mes;
+        var dia = userData.dia;
+        google.script.run.withSuccessHandler(function(resp) {
+          if (resp !== null) {  // Existe la fila para ese día
+            if (resp.hasData) {
+              var proceed = confirm("Ya existen datos para este día. ¿Deseas actualizar los datos existentes?");
+              if (proceed) {
+                google.script.run.withSuccessHandler(function(resp2) {
+                  alert(resp2);
+                  location.reload();
+                }).updateData(userData);
+              } else {
+                alert("Operación cancelada. No se ha modificado el registro existente.");
+              }
             } else {
-                alert("Debe haber al menos una operación");
+              // La fila existe pero no tiene datos de entrada: se actualiza sin preguntar.
+              google.script.run.withSuccessHandler(function(resp3) {
+                alert(resp3);
+                location.reload();
+              }).updateData(userData);
             }
+          } else {
+            // No se encontró fila: se guarda como registro nuevo.
+            google.script.run.withSuccessHandler(function(resp4) {
+              alert(resp4);
+              location.reload();
+            }).saveData(userData);
+          }
+        }).getData(mes, dia);
+      }
+
+      // Muestra los datos del día solicitado de forma vertical, respetando el orden de la cabecera.
+      function getResults() {
+        var mes = document.getElementById("mes").value;
+        var dia = document.getElementById("dia").value;
+        if (!dia) {
+          alert("Selecciona un día válido.");
+          return;
         }
-        
-        // Calcular total
-        function calculateTotal() {
-            let total = 0;
-            document.querySelectorAll('.dynamic-field').forEach(operation => {
-                const tipo = operation.querySelector('.tipo').value;
-                const monto = parseFloat(operation.querySelector('.monto').value) || 0;
-                
-                if (tipo === 'ingreso') {
-                    total += monto;
-                } else {
-                    total -= monto;
-                }
+        google.script.run.withSuccessHandler(function(resp) {
+          var output = "<h2>Resultados del Día</h2><pre>";
+          if (typeof resp === "string") {
+          output += resp;
+          } else {
+            headerOrder.forEach(function(key) {
+              var value = resp.rowData[key];
+              if (typeof value === "number") {
+                value = value.toFixed(2); // Redondea a dos decimales
+              }
+              output += key + ": " + (value !== undefined ? value : "") +  "\n";
             });
-            
-            document.getElementById('totalCierre').textContent = total.toFixed(2);
+          }
+          output += "</pre>";
+          document.getElementById("resultados").innerHTML = output;
+        }).getData(document.getElementById("mes").value, dia);
+      }
+
+
+      // Muestra la suma (agregada) de cada columna del mes, listada verticalmente.
+      function getMonthResults() {
+        var mes = document.getElementById("mes").value;
+        google.script.run.withSuccessHandler(function(resp) {
+          var output = "<h2>Resultados Agregados del Mes</h2><pre>";
+          if (typeof resp === "string") {
+            output += resp;
+        } else {
+          output += "Fecha: Total\n"; 
+          for (var i = 1; i < headerOrder.length; i++) {
+            var key = headerOrder[i];
+            var value = resp[key];
+            if (typeof value === "number") {
+              value = value.toFixed(2);
+            }
+            output += key + ": " + (value !== undefined ? value : "") + "\n";
+          }
         }
-        
-        // Guardar datos en Google Sheets
-        async function saveData() {
-            // Validar formulario
-            if (!validateForm()) return;
-            
-            const operaciones = [];
-            document.querySelectorAll('.dynamic-field').forEach(operation => {
-                operaciones.push({
-                    tipo: operation.querySelector('.tipo').value,
-                    concepto: operation.querySelector('.concepto').value,
-                    monto: operation.querySelector('.monto').value,
-                    proveedor: operation.querySelector('.proveedor').value || ''
-                });
-            });
-            
-            const data = {
-                fecha: document.getElementById('fecha').value,
-                turno: document.getElementById('turno').value,
-                responsable: document.getElementById('responsable').value,
-                observaciones: document.getElementById('observaciones').value,
-                total: document.getElementById('totalCierre').textContent,
-                operaciones: operaciones
-            };
-            
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    alert('✅ Cierre guardado correctamente');
-                    clearForm();
-                } else {
-                    throw new Error('Error al guardar');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('❌ Error al guardar. Verifica la consola para más detalles.');
-            }
-        }
-        
-        // Validar formulario
-        function validateForm() {
-            let isValid = true;
-            
-            // Validar campos principales
-            if (!document.getElementById('fecha').value) {
-                alert("La fecha es obligatoria");
-                isValid = false;
-            }
-            
-            if (!document.getElementById('turno').value) {
-                alert("El turno es obligatorio");
-                isValid = false;
-            }
-            
-            if (!document.getElementById('responsable').value) {
-                alert("El responsable es obligatorio");
-                isValid = false;
-            }
-            
-            // Validar cada operación
-            document.querySelectorAll('.dynamic-field').forEach((operation, index) => {
-                if (!operation.querySelector('.concepto').value) {
-                    alert(`El concepto en la operación ${index + 1} es obligatorio`);
-                    isValid = false;
-                }
-                
-                if (!operation.querySelector('.monto').value || parseFloat(operation.querySelector('.monto').value) <= 0) {
-                    alert(`El monto en la operación ${index + 1} debe ser mayor a 0`);
-                    isValid = false;
-                }
-            });
-            
-            return isValid;
-        }
-        
-        // Limpiar formulario
-        function clearForm() {
-            document.getElementById('mainForm').reset();
-            document.getElementById('totalCierre').textContent = '0.00';
-            
-            // Eliminar todas las operaciones excepto la primera
-            const container = document.getElementById('operacionesContainer');
-            while (container.children.length > 1) {
-                container.removeChild(container.lastChild);
-            }
-            
-            // Resetear la primera operación
-            const primeraOperacion = container.firstElementChild;
-            primeraOperacion.querySelector('.tipo').value = 'ingreso';
-            primeraOperacion.querySelector('.concepto').value = '';
-            primeraOperacion.querySelector('.monto').value = '';
-            primeraOperacion.querySelector('.proveedor').value = '';
-            
-            operationCount = 1;
-        }
-        
-        // Configurar fecha actual por defecto
-        window.onload = function() {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('fecha').value = today;
-        };
+          output += "</pre>";
+          document.getElementById("resultados").innerHTML = output;
+        }).getDataMonth(mes);
+      }
+      
     </script>
-</body>
+  </body>
 </html>
