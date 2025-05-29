@@ -12,16 +12,50 @@
       rel="stylesheet"
     />
     <style>
-      /* Fondo con imagen temática: caja registradora y objetos de cafetería */
+      /* Estilos base */
       body {
         margin: 0;
         padding: 0;
-        background: url('https://source.unsplash.com/1600x900/?cashregister,coffeemaker,bottle,coffee') no-repeat center center fixed;
-        background-size: cover;
         font-family: "Montserrat", sans-serif;
         color: #333;
+        background-color: #f1f1f1;
       }
-      /* Contenedor del contenido con overlay */
+      /* Contenedor de fondo para posicionar imágenes */
+      .bg-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+      .bg-container .bg-img {
+        position: absolute;
+        opacity: 0.2;
+      }
+      /* Posicionamiento de cada imagen */
+      .cashregister {
+        top: 15%;
+        left: 10%;
+        width: 350px;
+      }
+      .coffeemaker {
+        top: 5%;
+        right: 10%;
+        width: 200px;
+      }
+      .bottle {
+        bottom: 20%;
+        left: 15%;
+        width: 150px;
+      }
+      .coffee {
+        bottom: 10%;
+        right: 15%;
+        width: 250px;
+      }
+      /* Contenedor principal del contenido (overlay) */
       .container {
         max-width: 800px;
         margin: 50px auto;
@@ -29,6 +63,8 @@
         border-radius: 12px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         padding: 30px;
+        position: relative;
+        z-index: 1;
       }
       header {
         text-align: center;
@@ -125,6 +161,31 @@
     </style>
   </head>
   <body>
+    <!-- Contenedor de fondo con imágenes -->
+    <div class="bg-container">
+      <img
+        src="https://source.unsplash.com/350x200/?cashregister"
+        class="bg-img cashregister"
+        alt="Caja Registradora"
+      />
+      <img
+        src="https://source.unsplash.com/200x200/?coffeemaker"
+        class="bg-img coffeemaker"
+        alt="Cafetera"
+      />
+      <img
+        src="https://source.unsplash.com/150x250/?bottle"
+        class="bg-img bottle"
+        alt="Botella"
+      />
+      <img
+        src="https://source.unsplash.com/250x200/?coffee"
+        class="bg-img coffee"
+        alt="Café"
+      />
+    </div>
+
+    <!-- Contenido principal -->
     <div class="container">
       <header>
         <h1>☕ Cierre de Caja Cafetería</h1>
@@ -190,7 +251,7 @@
           { key: "retiradas", text: "🔻 Introduce Retiradas:" },
           { key: "gastos", text: "🧊 Introduce Gastos menores:" },
           { key: "contado", text: "💶 Introduce Efectivo real (contado físicamente):" },
-          { key: "comentarios", text: "📝 Introduce Comentarios (opcional):", type:"text" },
+          { key: "comentarios", text: "📝 Introduce Comentarios (opcional):", type: "text" },
           { key: "cambio", text: "💼 Introduce Cambio final:" }
         ];
 
