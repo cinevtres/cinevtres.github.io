@@ -1,224 +1,337 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cierre de Caja Cafetería</title>
+    <!-- Fuente moderna -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      body { font-family: Arial, sans-serif; margin: 20px; }
-      #chatBox div { margin: 10px 0; }
-      .question { font-weight: bold; }
-      .response { margin-left: 20px; }
-      input, select, button { padding: 5px; font-size: 1em; }
-      pre { background: #f5f5f5; padding: 10px; border-radius: 5px; }
+      /* Fondo con imagen temática: caja registradora con objetos de cafetería */
+      body {
+        margin: 0;
+        padding: 0;
+        background: url('https://bing.com/th/id/BCO.c8003f3d-fa16-40a4-b6dc-24f54af0a11f.png') no-repeat center center fixed;
+        background-size: cover;
+        font-family: "Montserrat", sans-serif;
+        color: #333;
+      }
+      /* Contenedor del contenido con overlay */
+      .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      header h1 {
+        font-size: 2.5em;
+        color: #6f4e37;
+        margin-bottom: 10px;
+      }
+      header p.subtitle {
+        color: #8d6e63;
+        font-size: 1.2em;
+        margin: 0;
+      }
+      /* Formularios básicos */
+      .form-section {
+        margin-bottom: 20px;
+      }
+      .form-section label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+        color: #444;
+      }
+      .form-section select,
+      .form-section input[type="number"],
+      .form-section input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        font-size: 1em;
+      }
+      /* Botones con efectos */
+      .button-group {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .button-group button {
+        background-color: #6f4e37;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+      .button-group button:hover {
+        background-color: #5a3d2b;
+        transform: scale(1.03);
+      }
+      /* Chat y resultados */
+      #chatBox,
+      #resultados {
+        background: #fafafa;
+        border: 1px dashed #ccc;
+        border-radius: 6px;
+        padding: 20px;
+        margin-top: 20px;
+      }
+      #chatBox div {
+        margin-bottom: 10px;
+      }
+      .question {
+        font-weight: 600;
+        background: #e1f5fe;
+        padding: 10px;
+        border-left: 4px solid #039be5;
+        border-radius: 4px;
+      }
+      .response {
+        margin-left: 20px;
+        padding: 8px;
+        background: #f1f8e9;
+        border-left: 4px solid #7cb342;
+        border-radius: 4px;
+      }
+      pre {
+        background: #f5f5f5;
+        padding: 15px;
+        border-radius: 6px;
+        overflow-x: auto;
+      }
+      /* Adaptabilidad para móviles */
+      @media (max-width: 600px) {
+        .container {
+          margin: 20px;
+        }
+      }
     </style>
   </head>
   <body>
-    <h1>Cierre de Caja Cafetería</h1>
+    <div class="container">
+      <header>
+        <h1>☕ Cierre de Caja Cafetería</h1>
+        <p class="subtitle">Control sencillo para el cierre diario de caja</p>
+      </header>
 
-    <!-- Seleccionar mes y día -->
-    <label for="mes">Selecciona el mes:</label>
-    <select id="mes">
-      <option>Enero</option>
-      <option>Febrero</option>
-      <option>Marzo</option>
-      <option>Abril</option>
-      <option>Mayo</option>
-      <option>Junio</option>
-      <option>Julio</option>
-      <option>Agosto</option>
-      <option>Septiembre</option>
-      <option>Octubre</option>
-      <option>Noviembre</option>
-      <option>Diciembre</option>
-    </select>
+      <!-- Selección de mes y día -->
+      <div class="form-section">
+        <label for="mes">Selecciona el mes:</label>
+        <select id="mes">
+          <option>Enero</option>
+          <option>Febrero</option>
+          <option>Marzo</option>
+          <option>Abril</option>
+          <option>Mayo</option>
+          <option>Junio</option>
+          <option>Julio</option>
+          <option>Agosto</option>
+          <option>Septiembre</option>
+          <option>Octubre</option>
+          <option>Noviembre</option>
+          <option>Diciembre</option>
+        </select>
 
-    <label for="dia">Selecciona el día:</label>
-    <input type="number" id="dia" min="1" max="31">
+        <label for="dia">Selecciona el día:</label>
+        <input type="number" id="dia" min="1" max="31" placeholder="Ej. 15" />
+      </div>
 
-    <!-- Botones para registrar y ver datos -->
-    <button onclick="startEntry()">Registrar Cierre</button>
-    <button onclick="getResults()">Ver Datos del Día</button>
-    <button onclick="getMonthResults()">Ver Datos del Mes</button>
+      <div class="button-group">
+        <button onclick="startEntry()">Registrar Cierre</button>
+        <button onclick="getResults()">Ver Datos del Día</button>
+        <button onclick="getMonthResults()">Ver Datos del Mes</button>
+      </div>
 
-    <div id="chatBox"></div>
-    <div id="resultados"></div>
+      <div id="chatBox"></div>
+      <div id="resultados"></div>
 
-    <script>
-      // Orden de las cabeceras seg\u00FAn el Excel
-      var headerOrder = [
-        "Fecha",
-        "Ventas en efectivo",
-        "Ventas con tarjeta",
-        "Total ingresos",
-        "Saldo inicial",
-        "Ingresos efectivo (de ventas)",
-        "Retiradas",
-        "Gastos menores",
-        "Saldo final",
-        "Efectivo teórico (según TPV)",
-        "Efectivo real (contado físicamente)",
-        "Descuadre",
-        "Comentarios",
-        "Cambio final",
-        "Retiro a sobre / caja fuerte"
-      ];
+      <script>
+        // Orden de cabeceras según el Excel
+        var headerOrder = [
+          "Fecha",
+          "Ventas en efectivo",
+          "Ventas con tarjeta",
+          "Total ingresos",
+          "Saldo inicial",
+          "Ingresos efectivo (de ventas)",
+          "Retiradas",
+          "Gastos menores",
+          "Saldo final",
+          "Efectivo teórico (según TPV)",
+          "Efectivo real (contado físicamente)",
+          "Descuadre",
+          "Comentarios",
+          "Cambio final",
+          "Retiro a sobre / caja fuerte"
+        ];
 
-      // Preguntas del flujo de registro. Solo se solicitan los datos de entrada.
-      var questions = [
-        { key: "efectivo", text: "💰 Introduce Ventas en efectivo:" },
-        { key: "tarjeta", text: "💳 Introduce Ventas con tarjeta:" },
-        { key: "inicial", text: "📦 Introduce Saldo inicial:" },
-        { key: "retiradas", text: "🔻 Introduce Retiradas:" },
-        { key: "gastos", text: "🧊 Introduce Gastos menores:" },
-        { key: "contado", text: "💶 Introduce Efectivo real (contado físicamente):" },
-        { key: "comentarios", text: "📝 Introduce Comentarios (opcional):", type:"text" },
-        { key: "cambio", text: "💼 Introduce Cambio final:" }
-      ];
+        // Preguntas para el registro
+        var questions = [
+          { key: "efectivo", text: "💰 Introduce Ventas en efectivo:" },
+          { key: "tarjeta", text: "💳 Introduce Ventas con tarjeta:" },
+          { key: "inicial", text: "📦 Introduce Saldo inicial:" },
+          { key: "retiradas", text: "🔻 Introduce Retiradas:" },
+          { key: "gastos", text: "🧊 Introduce Gastos menores:" },
+          { key: "contado", text: "💶 Introduce Efectivo real (contado físicamente):" },
+          { key: "comentarios", text: "📝 Introduce Comentarios (opcional):", type:"text" },
+          { key: "cambio", text: "💼 Introduce Cambio final:" }
+        ];
 
-      var userData = {};
-      var currentQuestion = 0;
+        var userData = {};
+        var currentQuestion = 0;
 
-      // Inicia el registro (se leen mes y día)
-      function startEntry() {
-        userData.mes = document.getElementById("mes").value;
-        userData.dia = document.getElementById("dia").value;
-        if (!userData.dia) {
-          alert("Selecciona un día válido.");
-          return;
+        function startEntry() {
+          userData.mes = document.getElementById("mes").value;
+          userData.dia = document.getElementById("dia").value;
+          if (!userData.dia) {
+            alert("Selecciona un día válido.");
+            return;
+          }
+          currentQuestion = 0;
+          document.getElementById("chatBox").innerHTML = "";
+          askQuestion();
         }
-        currentQuestion = 0;
-        document.getElementById("chatBox").innerHTML = "";
-        askQuestion();
-      }
 
-      // Muestra cada pregunta
-      function askQuestion() {
-        if (currentQuestion < questions.length) {
-          var chatBox = document.getElementById('chatBox');
-          var qDiv = document.createElement('div');
-          qDiv.className = "question";
-          qDiv.textContent = questions[currentQuestion].text;
-          chatBox.appendChild(qDiv);
+        function askQuestion() {
+          if (currentQuestion < questions.length) {
+            var chatBox = document.getElementById("chatBox");
+            var qDiv = document.createElement("div");
+            qDiv.className = "question";
+            qDiv.textContent = questions[currentQuestion].text;
+            chatBox.appendChild(qDiv);
 
-          var input = document.createElement('input');
-          // Si la pregunta es de tipo texto (por ejemplo, comentarios), cambiar el tipo
-          input.type = (questions[currentQuestion].type) ? questions[currentQuestion].type : "number";
-          if(input.type=="number") { input.step = "any"; }
-          input.id = questions[currentQuestion].key;
-          input.placeholder = "Ingresa un valor";
-          chatBox.appendChild(input);
+            var input = document.createElement("input");
+            input.type = questions[currentQuestion].type ? questions[currentQuestion].type : "number";
+            if (input.type === "number") {
+              input.step = "any";
+            }
+            input.id = questions[currentQuestion].key;
+            input.placeholder = "Ingresa un valor";
+            chatBox.appendChild(input);
 
-          var btn = document.createElement('button');
-          btn.textContent = "Enviar";
-          btn.onclick = submitAnswer;
-          chatBox.appendChild(btn);
-          input.focus();
-        } else {
-          finalizeData();
+            var btn = document.createElement("button");
+            btn.textContent = "Enviar";
+            btn.onclick = submitAnswer;
+            chatBox.appendChild(btn);
+
+            input.focus();
+          } else {
+            finalizeData();
+          }
         }
-      }
 
-      function submitAnswer() {
-        var key = questions[currentQuestion].key;
-        var inputElem = document.getElementById(key);
-        var value = (inputElem.type=="number") ? parseFloat(inputElem.value) : inputElem.value;
-        if (inputElem.type=="number" && isNaN(value)) {
-          alert("Por favor, introduce un número válido.");
-          return;
+        function submitAnswer() {
+          var key = questions[currentQuestion].key;
+          var inputElem = document.getElementById(key);
+          var value = inputElem.type === "number" ? parseFloat(inputElem.value) : inputElem.value;
+          if (inputElem.type === "number" && isNaN(value)) {
+            alert("Por favor, introduce un número válido.");
+            return;
+          }
+          userData[key] = value;
+          var chatBox = document.getElementById("chatBox");
+          var respDiv = document.createElement("div");
+          respDiv.className = "response";
+          respDiv.textContent = value;
+          chatBox.appendChild(respDiv);
+          currentQuestion++;
+          askQuestion();
         }
-        userData[key] = value;
-        var chatBox = document.getElementById('chatBox');
-        var respDiv = document.createElement('div');
-        respDiv.className = "response";
-        respDiv.textContent = value;
-        chatBox.appendChild(respDiv);
-        currentQuestion++;
-        askQuestion();
-      }
 
-      // Finaliza el registro y decide si actualizar o guardar nuevo registro.
-      function finalizeData() {
-        var mes = userData.mes;
-        var dia = userData.dia;
-        google.script.run.withSuccessHandler(function(resp) {
-          if (resp !== null) {  // Existe la fila para ese día
-            if (resp.hasData) {
-              var proceed = confirm("Ya existen datos para este día. ¿Deseas actualizar los datos existentes?");
-              if (proceed) {
-                google.script.run.withSuccessHandler(function(resp2) {
-                  alert(resp2);
+        function finalizeData() {
+          var mes = userData.mes;
+          var dia = userData.dia;
+          google.script.run.withSuccessHandler(function(resp) {
+            if (resp !== null) {
+              if (resp.hasData) {
+                var proceed = confirm("Ya existen datos para este día. ¿Deseas actualizar?");
+                if (proceed) {
+                  google.script.run.withSuccessHandler(function(resp2) {
+                    alert(resp2);
+                    location.reload();
+                  }).updateData(userData);
+                } else {
+                  alert("Operación cancelada, no se modificó el registro.");
+                }
+              } else {
+                google.script.run.withSuccessHandler(function(resp3) {
+                  alert(resp3);
                   location.reload();
                 }).updateData(userData);
-              } else {
-                alert("Operación cancelada. No se ha modificado el registro existente.");
               }
             } else {
-              // La fila existe pero no tiene datos de entrada: se actualiza sin preguntar.
-              google.script.run.withSuccessHandler(function(resp3) {
-                alert(resp3);
+              google.script.run.withSuccessHandler(function(resp4) {
+                alert(resp4);
                 location.reload();
-              }).updateData(userData);
+              }).saveData(userData);
             }
-          } else {
-            // No se encontró fila: se guarda como registro nuevo.
-            google.script.run.withSuccessHandler(function(resp4) {
-              alert(resp4);
-              location.reload();
-            }).saveData(userData);
-          }
-        }).getData(mes, dia);
-      }
-
-      // Muestra los datos del día solicitado de forma vertical, respetando el orden de la cabecera.
-      function getResults() {
-        var mes = document.getElementById("mes").value;
-        var dia = document.getElementById("dia").value;
-        if (!dia) {
-          alert("Selecciona un día válido.");
-          return;
+          }).getData(mes, dia);
         }
-        google.script.run.withSuccessHandler(function(resp) {
-          var output = "<h2>Resultados del Día</h2><pre>";
-          if (typeof resp === "string") {
-          output += resp;
-          } else {
-            headerOrder.forEach(function(key) {
-              var value = resp.rowData[key];
-              if (typeof value === "number") {
-                value = value.toFixed(2); // Redondea a dos decimales
+
+        function getResults() {
+          var mes = document.getElementById("mes").value;
+          var dia = document.getElementById("dia").value;
+          if (!dia) {
+            alert("Selecciona un día válido.");
+            return;
+          }
+          google.script.run.withSuccessHandler(function(resp) {
+            var output = "<h2>Resultados del Día</h2><pre>";
+            if (typeof resp === "string") {
+              output += resp;
+            } else {
+              headerOrder.forEach(function(key) {
+                var value = resp.rowData[key];
+                if (typeof value === "number") {
+                  value = key === "Fecha" ? value.toFixed(0) : value.toFixed(2);
+                }
+                output += key + ": " + (value !== undefined ? value : "") + "\n";
+              });
+            }
+            output += "</pre>";
+            document.getElementById("resultados").innerHTML = output;
+          }).getData(document.getElementById("mes").value, dia);
+        }
+
+        function getMonthResults() {
+          var mes = document.getElementById("mes").value;
+          google.script.run.withSuccessHandler(function(resp) {
+            var output = "<h2>Resultados del Mes</h2><pre>";
+            if (typeof resp === "string") {
+              output += resp;
+            } else {
+              output += "Fecha: Total\n";
+              for (var i = 1; i < headerOrder.length; i++) {
+                var key = headerOrder[i];
+                var value = resp[key];
+                if (typeof value === "number") {
+                  value = value.toFixed(2);
+                }
+                output += key + ": " + (value !== undefined ? value : "") + "\n";
               }
-              output += key + ": " + (value !== undefined ? value : "") +  "\n";
-            });
-          }
-          output += "</pre>";
-          document.getElementById("resultados").innerHTML = output;
-        }).getData(document.getElementById("mes").value, dia);
-      }
-
-
-      // Muestra la suma (agregada) de cada columna del mes, listada verticalmente.
-      function getMonthResults() {
-        var mes = document.getElementById("mes").value;
-        google.script.run.withSuccessHandler(function(resp) {
-          var output = "<h2>Resultados Agregados del Mes</h2><pre>";
-          if (typeof resp === "string") {
-            output += resp;
-        } else {
-          output += "Fecha: Total\n"; 
-          for (var i = 1; i < headerOrder.length; i++) {
-            var key = headerOrder[i];
-            var value = resp[key];
-            if (typeof value === "number") {
-              value = value.toFixed(2);
             }
-            output += key + ": " + (value !== undefined ? value : "") + "\n";
-          }
+            output += "</pre>";
+            document.getElementById("resultados").innerHTML = output;
+          }).getDataMonth(mes);
         }
-          output += "</pre>";
-          document.getElementById("resultados").innerHTML = output;
-        }).getDataMonth(mes);
-      }
-      
-    </script>
+      </script>
+    </div>
   </body>
 </html>
