@@ -3,190 +3,162 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cierre de Caja Cafetería</title>
-    <!-- Fuente Montserrat -->
+    <title>Cierre de Caja</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
-      /* Configuración base del body */
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        margin: 0;
-        padding: 0;
-        font-family: "Montserrat", sans-serif;
-        color: #333;
-        position: relative;
-        overflow: hidden; /* Evita scroll por las imágenes de fondo */
-        background-color: #f1f1f1; /* Color de fondo en caso de que las imágenes no carguen */
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: url('https://bing.com/th/id/BCO.1200abd5-9a2f-44c9-aa67-e522db5b94d7.png') no-repeat center   center fixed;
+      background-size: cover;
+      color: #2d3748;
       }
 
-      /* Estilo para las imágenes fijas de fondo */
-      .bg-layer {
-        position: fixed;
-        z-index: -1;
-        pointer-events: none;
-        opacity: 0.2;  /* Ajusta opacidad para que no distraigan */
-      }
-      /* Posicionamiento y tamaño de cada imagen */
-      .bg-cashregister {
-        top: 10%;
-        left: 5%;
-        width: 300px;
-      }
-      .bg-coffeemaker {
-        top: 5%;
-        right: 5%;
-        width: 200px;
-      }
-      .bg-bottle {
-        bottom: 15%;
-        left: 10%;
-        width: 150px;
-      }
-      .bg-coffee {
-        bottom: 10%;
-        right: 10%;
-        width: 250px;
-      }
-
-      /* Contenedor principal (overlay) */
       .container {
-        max-width: 800px;
-        margin: 50px auto;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 30px;
-        position: relative;
-        z-index: 1;
+        max-width: 700px;
+        margin: 40px auto;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+        padding: 40px 30px;
       }
+
       header {
         text-align: center;
         margin-bottom: 30px;
       }
+
       header h1 {
-        font-size: 2.5em;
-        color: #6f4e37;
-        margin-bottom: 10px;
-      }
-      header p.subtitle {
-        color: #8d6e63;
-        font-size: 1.2em;
+        font-size: 2em;
+        font-weight: 700;
+        color: #1a202c;
         margin: 0;
       }
-      /* Resto de estilos para formularios, botones y demás */
+
+      header p.subtitle {
+        color: #718096;
+        font-size: 1em;
+        margin-top: 10px;
+      }
+
       .form-section {
         margin-bottom: 20px;
       }
+
       .form-section label {
-        font-weight: 600;
-        margin-bottom: 5px;
         display: block;
-        color: #444;
+        font-weight: 600;
+        margin-bottom: 6px;
       }
-      .form-section select,
-      .form-section input[type="number"],
-      .form-section input[type="text"] {
+
+      .form-section input,
+      .form-section select {
         width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 2px solid #ddd;
-        border-radius: 6px;
+        padding: 12px;
+        border: 1px solid #cbd5e0;
+        border-radius: 8px;
         font-size: 1em;
+        margin-bottom: 12px;
+        transition: border 0.2s ease-in-out;
       }
+
+      .form-section input:focus,
+      .form-section select:focus {
+        outline: none;
+        border-color: #3182ce;
+        box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.2);
+      }
+
       .button-group {
         text-align: center;
         margin-bottom: 20px;
       }
+
       .button-group button {
-        background-color: #6f4e37;
+        background-color: #2b6cb0;
         color: #fff;
         border: none;
-        padding: 10px 20px;
-        margin: 5px;
-        border-radius: 6px;
+        padding: 12px 24px;
+        margin: 6px;
+        border-radius: 8px;
         font-size: 1em;
         cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.3s ease;
+        transition: background 0.3s ease, transform 0.2s ease;
       }
+
       .button-group button:hover {
-        background-color: #5a3d2b;
-        transform: scale(1.03);
+        background-color: #2c5282;
+        transform: translateY(-2px);
       }
+
       #chatBox,
       #resultados {
-        background: #fafafa;
-        border: 1px dashed #ccc;
-        border-radius: 6px;
+        background: #f7fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
         padding: 20px;
         margin-top: 20px;
       }
-      #chatBox div {
-        margin-bottom: 10px;
-      }
+
       .question {
         font-weight: 600;
-        background: #e1f5fe;
-        padding: 10px;
-        border-left: 4px solid #039be5;
-        border-radius: 4px;
+        background: #ebf8ff;
+        padding: 10px 12px;
+        border-left: 4px solid #3182ce;
+        border-radius: 6px;
+        margin-bottom: 8px;
       }
+
       .response {
-        margin-left: 20px;
-        padding: 8px;
-        background: #f1f8e9;
-        border-left: 4px solid #7cb342;
-        border-radius: 4px;
+        margin-left: 16px;
+        padding: 8px 12px;
+        background: #f0fff4;
+        border-left: 4px solid #38a169;
+        border-radius: 6px;
+        margin-bottom: 12px;
       }
+
       pre {
-        background: #f5f5f5;
-        padding: 15px;
+        background: #edf2f7;
+        padding: 16px;
         border-radius: 6px;
         overflow-x: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
       }
+
       @media (max-width: 600px) {
         .container {
           margin: 20px;
+          padding: 20px;
+        }
+
+        .button-group button {
+          width: 100%;
+          margin: 8px 0;
         }
       }
     </style>
   </head>
   <body>
-    <!-- Imágenes de fondo -->
-    <img
-      src="https://source.unsplash.com/300x300/?cashregister"
-      alt="Caja Registradora"
-      class="bg-layer bg-cashregister"
-    />
-    <img
-      src="https://source.unsplash.com/200x200/?coffeemaker"
-      alt="Cafetera"
-      class="bg-layer bg-coffeemaker"
-    />
-    <img
-      src="https://source.unsplash.com/150x250/?bottle"
-      alt="Botella"
-      class="bg-layer bg-bottle"
-    />
-    <img
-      src="https://source.unsplash.com/250x200/?coffee"
-      alt="Café"
-      class="bg-layer bg-coffee"
-    />
-
-    <!-- Contenido principal -->
     <div class="container">
       <header>
-        <h1>☕ Cierre de Caja Cafetería</h1>
-        <p class="subtitle">Control sencillo para el cierre diario de caja</p>
+        <h1>Cierre de Caja</h1>
+        <p class="subtitle">Control diario</p>
       </header>
 
-      <!-- Selección de mes y día -->
       <div class="form-section">
-        <label for="mes">Selecciona el mes:</label>
+        <label for="mes">Mes:</label>
         <select id="mes">
           <option>Enero</option>
           <option>Febrero</option>
@@ -202,7 +174,7 @@
           <option>Diciembre</option>
         </select>
 
-        <label for="dia">Selecciona el día:</label>
+        <label for="dia">Día:</label>
         <input type="number" id="dia" min="1" max="31" placeholder="Ej. 15" />
       </div>
 
@@ -214,8 +186,7 @@
 
       <div id="chatBox"></div>
       <div id="resultados"></div>
-
-      <script>
+       <script>
         // Orden de cabeceras según el Excel
         var headerOrder = [
           "Fecha",
@@ -235,7 +206,7 @@
           "Retiro a sobre / caja fuerte"
         ];
 
-        // Preguntas para el registro de datos
+        // Preguntas para el registro
         var questions = [
           { key: "efectivo", text: "💰 Introduce Ventas en efectivo:" },
           { key: "tarjeta", text: "💳 Introduce Ventas con tarjeta:" },
